@@ -47,14 +47,14 @@ async function run() {
         })
 
         // SERVICES API
-        app.get('/service', async (req, res) => {
+        app.get('/items', async (req, res) => {
             const query = {};
             const cursor = serviceCollection.find(query);
             const services = await cursor.toArray();
             res.send(services);
         });
 
-        app.get('/service/:id', async (req, res) => {
+        app.get('/items/:id', async (req, res) => {
             const id = req.params.id;
             console.log(id);
             const query = { _id: ObjectId(id) };
@@ -63,14 +63,14 @@ async function run() {
         });
 
         // POST
-        app.post('/service', async (req, res) => {
+        app.post('/items', async (req, res) => {
             const newService = req.body;
             const result = await serviceCollection.insertOne(newService);
             res.send(result);
         });
 
         // DELETE
-        app.delete('/service/:id', async (req, res) => {
+        app.delete('/items/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
             const result = await serviceCollection.deleteOne(query);
