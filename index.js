@@ -34,8 +34,8 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 async function run() {
     try {
         await client.connect();
-        const serviceCollection = client.db('geniusCar').collection('service');
-        const orderCollection = client.db('geniusCar').collection('order');
+        const serviceCollection = client.db('Harmic').collection('items');
+        const orderCollection = client.db('Harmic').collection('order');
 
         // AUTH
         app.post('/login', async (req, res) => {
@@ -88,8 +88,8 @@ async function run() {
                 const orders = await cursor.toArray();
                 res.send(orders);
             }
-            else{
-                res.status(403).send({message: 'forbidden access'})
+            else {
+                res.status(403).send({ message: 'forbidden access' })
             }
         })
 
@@ -111,7 +111,7 @@ app.get('/', (req, res) => {
     res.send('Running Genius Server');
 });
 
-app.get('/hero', (req, res) =>{
+app.get('/hero', (req, res) => {
     res.send('Hero meets hero ku')
 })
 
