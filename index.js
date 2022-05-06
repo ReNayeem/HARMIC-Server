@@ -34,7 +34,7 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 async function run() {
     try {
         await client.connect();
-        const serviceCollection = client.db('Harmic').collection('items');
+        const itemCollection = client.db('Harmic').collection('items');
         const orderCollection = client.db('Harmic').collection('order');
 
         // AUTH
@@ -49,7 +49,7 @@ async function run() {
         // SERVICES API
         app.get('/items', async (req, res) => {
             const query = {};
-            const cursor = serviceCollection.find(query);
+            const cursor = itemCollection.find(query);
             const services = await cursor.toArray();
             res.send(services);
         });
@@ -58,14 +58,14 @@ async function run() {
             const id = req.params.id;
             console.log(id);
             const query = { _id: ObjectId(id) };
-            const service = await serviceCollection.findOne(query);
+            const service = await itemCollection.findOne(query);
             res.send(service);
         });
 
         // POST
         app.post('/items', async (req, res) => {
             const newService = req.body;
-            const result = await serviceCollection.insertOne(newService);
+            const result = await itemCollection.insertOne(newService);
             res.send(result);
         });
 
@@ -73,7 +73,7 @@ async function run() {
         app.delete('/items/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
-            const result = await serviceCollection.deleteOne(query);
+            const result = await itemCollection.deleteOne(query);
             res.send(result);
         });
 
