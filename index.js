@@ -46,7 +46,7 @@ async function run() {
             res.send({ accessToken });
         })
 
-        // SERVICES API
+        // Item API
         app.get('/items', async (req, res) => {
             const query = {};
             const cursor = itemCollection.find(query);
@@ -78,7 +78,6 @@ async function run() {
         });
 
         // Order Collection API
-
         app.get('/order', verifyJWT, async (req, res) => {
             const decodedEmail = req.decoded.email;
             const email = req.query.email;
@@ -107,13 +106,13 @@ async function run() {
 
 run().catch(console.dir);
 
-app.get('/', (req, res) => {
-    res.send('Running Genius Server');
-});
+// app.get('/', (req, res) => {
+//     res.send('Running Genius Server');
+// });
 
-app.get('/hero', (req, res) => {
-    res.send('Hero meets hero ku')
-})
+// app.get('/hero', (req, res) => {
+//     res.send('Hero meets hero ku')
+// })
 
 app.listen(port, () => {
     console.log('Listening to port', port);
