@@ -4,32 +4,36 @@ const jwt = require('jsonwebtoken');
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 require('dotenv').config();
 const port = process.env.PORT || 5000;
-
 const app = express();
-
 // middleware
 app.use(cors());
 app.use(express.json());
 
+
+
+// JWT start
 function verifyJWT(req, res, next) {
     const authHeader = req.headers.authorization;
     if (!authHeader) {
-        return res.status(401).send({ message: 'unauthorized access' });
+        return res.status(401).send({ message: 'Unauthorized access' });
     }
     const token = authHeader.split(' ')[1];
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
         if (err) {
             return res.status(403).send({ message: 'Forbidden access' });
         }
-        console.log('decoded', decoded);
         req.decoded = decoded;
         next();
     })
 }
+// JWT end
 
 
+// connect to mongodb start
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.zmn0a.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+// connect to mongodb end
+
 
 async function run() {
     try {
@@ -37,7 +41,7 @@ async function run() {
         const itemCollection = client.db('Harmic').collection('items');
         const orderCollection = client.db('Harmic').collection('order');
 
-        // AUTH
+        // Authentication
         app.post('/login', async (req, res) => {
             const user = req.body;
             const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
@@ -46,7 +50,7 @@ async function run() {
             res.send({ accessToken });
         })
 
-        // Item API
+        // Items
         app.get('/items', async (req, res) => {
             const query = {};
             const cursor = itemCollection.find(query);
@@ -62,14 +66,14 @@ async function run() {
             res.send(service);
         });
 
-        // POST
+        // Post item
         app.post('/items', async (req, res) => {
             const newService = req.body;
             const result = await itemCollection.insertOne(newService);
             res.send(result);
         });
 
-        // DELETE
+        // Delete item
         app.delete('/items/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
@@ -77,7 +81,7 @@ async function run() {
             res.send(result);
         });
 
-        // Order Collection API
+        // Orders
         app.get('/order', verifyJWT, async (req, res) => {
             const decodedEmail = req.decoded.email;
             const email = req.query.email;
