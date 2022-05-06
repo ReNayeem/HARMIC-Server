@@ -54,22 +54,22 @@ async function run() {
         app.get('/items', async (req, res) => {
             const query = {};
             const cursor = itemCollection.find(query);
-            const services = await cursor.toArray();
-            res.send(services);
+            const items = await cursor.toArray();
+            res.send(items);
         });
 
         app.get('/items/:id', async (req, res) => {
             const id = req.params.id;
             console.log(id);
             const query = { _id: ObjectId(id) };
-            const service = await itemCollection.findOne(query);
-            res.send(service);
+            const item = await itemCollection.findOne(query);
+            res.send(item);
         });
 
         // Post item
         app.post('/items', async (req, res) => {
-            const newService = req.body;
-            const result = await itemCollection.insertOne(newService);
+            const newItem = req.body;
+            const result = await itemCollection.insertOne(newItem);
             res.send(result);
         });
 
@@ -110,12 +110,12 @@ async function run() {
 
 run().catch(console.dir);
 
-// app.get('/', (req, res) => {
-//     res.send('Running Genius Server');
-// });
+app.get('/', (req, res) => {
+    res.send('Server Running');
+});
 
 // app.get('/hero', (req, res) => {
-//     res.send('Hero meets hero ku')
+//     res.send('Heroku')
 // })
 
 app.listen(port, () => {
