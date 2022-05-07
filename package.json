@@ -1,5 +1,5 @@
 {
-  "name": "warehouse-management-server-side-renayeem",
+  "name": "Harmic-management-server-side-renayeem",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,15 +10,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ProgrammingHeroWC4/warehouse-management-server-side-ReNayeem.git"
+    "url": "git+https://github.com/ProgrammingHeroWC4/Harmic-management-server-side-ReNayeem.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ProgrammingHeroWC4/warehouse-management-server-side-ReNayeem/issues"
+    "url": "https://github.com/ProgrammingHeroWC4/Harmic-management-server-side-ReNayeem/issues"
   },
-  "homepage": "https://github.com/ProgrammingHeroWC4/warehouse-management-server-side-ReNayeem#readme",
+  "homepage": "https://github.com/ProgrammingHeroWC4/Harmic-management-server-side-ReNayeem#readme",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
