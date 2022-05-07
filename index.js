@@ -58,6 +58,14 @@ async function run() {
             res.send(items);
         });
 
+        app.get('/AddItem', async (req, res) => {
+            const email = req.query.email;
+            const query = { email: email };
+            const cursor = itemCollection.find(query);
+            const result = await cursor.toArray();
+            res.send(result)
+        })
+
         app.get('/items/:id', async (req, res) => {
             const id = req.params.id;
             console.log(id);
