@@ -5,7 +5,6 @@ const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 require('dotenv').config();
 const port = process.env.PORT || 5000;
 const app = express();
-// middleware
 app.use(cors());
 app.use(express.json());
 
@@ -39,7 +38,6 @@ async function run() {
     try {
         await client.connect();
         const itemCollection = client.db('Harmic').collection('items');
-        const orderCollection = client.db('Harmic').collection('order');
 
         // Authentication
         app.post('/login', async (req, res) => {
@@ -58,6 +56,7 @@ async function run() {
             res.send(items);
         });
 
+        // Get item
         app.get('/AddItem', async (req, res) => {
             const email = req.query.email;
             const query = { email: email };
@@ -85,7 +84,6 @@ async function run() {
         app.put('/items/:id', async (req, res) => {
             const id = req.params;
             const updatedProduct = req.body;
-            console.log(updatedProduct);
             const filter = { _id: ObjectId(id) };
             const options = { upsert: true };
             const updateDoc = {
@@ -105,31 +103,8 @@ async function run() {
             res.send(result);
         });
 
-        // Orders
-        app.get('/order', verifyJWT, async (req, res) => {
-            const decodedEmail = req.decoded.email;
-            const email = req.query.email;
-            if (email === decodedEmail) {
-                const query = { email: email };
-                const cursor = orderCollection.find(query);
-                const orders = await cursor.toArray();
-                res.send(orders);
-            }
-            else {
-                res.status(403).send({ message: 'forbidden access' })
-            }
-        })
-
-        app.post('/order', async (req, res) => {
-            const order = req.body;
-            const result = await orderCollection.insertOne(order);
-            res.send(result);
-        })
-
     }
-    finally {
-
-    }
+    finally { }
 }
 
 run().catch(console.dir);
@@ -137,10 +112,6 @@ run().catch(console.dir);
 app.get('/', (req, res) => {
     res.send('Server Running');
 });
-
-// app.get('/hero', (req, res) => {
-//     res.send('Heroku')
-// })
 
 app.listen(port, () => {
     console.log('Listening to port', port);
