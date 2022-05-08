@@ -1,6 +1,6 @@
 <h1>HARMIC Server</h1>
 
-https://harmic.herokuapp.com/
+https://harmic.herokuapp.com/<br>
 https://harmic.herokuapp.com/items
 
 <p>HARMIC Server for HARMIC grocery warehouse website.</p>
