@@ -1,7 +1,7 @@
 <h1>HARMIC Server</h1>
 
-https://harmic-server.vercel.app/<br>
-https://harmic-server.vercel.app/items
+https://harmic-server.up.railway.app/<br>
+https://harmic-server.up.railway.app/items
 
 <p>HARMIC Server for HARMIC grocery warehouse website.</p>
 
