@@ -1,7 +1,7 @@
 <h1>HARMIC Server</h1>
 
-https://harmic-server.up.railway.app/<br>
-https://harmic-server.up.railway.app/items
+https://harmic-server.onrender.com/<br>
+https://harmic-server.onrender.com/items
 
 <p>HARMIC Server for HARMIC grocery warehouse website.</p>
 
